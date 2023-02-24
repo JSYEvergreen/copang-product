@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "copang"
+version = "0.0.1"
+description = "Copang Project"
+authors = ["PunRabbit"]
+license = "Free"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+fastapi = "^0.92.0"
+uvicorn = "^0.20.0"
+pydantic = "^1.10.5"
+dependency-injector = "^4.41.0"
+tomlkit = "^0.11.6"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
