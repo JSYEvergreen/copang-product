@@ -1,0 +1,7 @@
+[BaseSetting]
+name = "postgresql"
+user = "postgres"
+password = "PWD"
+host = "HOST"
+port = 10000
+database = "NAME"
