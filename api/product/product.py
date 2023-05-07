@@ -1,40 +1,114 @@
 from pydantic import BaseModel
-from typing import Any, List
+from typing import Optional, List
 
 
 class BaseResponse(BaseModel):
-    resultCode: int
-    resultMsg: str
-    resultBody: Any
+    isSuccess: bool
+    content: BaseModel
 
 
-class Product(BaseModel):
-    id: str
-    name: str
-    code: str
-    description: str
-    information: str
-    quantity: int
-    cost: int
-    is_sale: bool
-    seller_id: int
-    created_at: datetime
-    updated_at: datetime
-    deleted_at: Optional[datetime]
+class ProductPolicyRequest(BaseModel):
+    productId: int
 
 
-class GetOneRequest(BaseModel):
-    code: str
+class ProductPolicyResponse(BaseResponse):
+
+    class Policy(BaseModel):
+        productType: str
+        productPolicy: int
+
+    content: Policy
 
 
-class GetOneResponse(BaseResponse):
-    resultBody: Product
+class ProductDuplicateRequest(BaseModel):
+    productCode: int
 
 
-class GetPluralRequest(BaseModel):
-    codes: List[str]
+class ProductDuplicateResponse(BaseResponse):
+
+    class ProductInfo(BaseModel):
+        productId: int
+        productName: str
+        productDescription: str
+        productInformation: str
+        productQuantity: int
+        productCost: int
+        productIsSale: bool
+        productSellerId: int
+        productCreateAt: str
+        ProductDeletedAt: Optional[str]
+        productUpdatedAt: str
+
+    content: ProductInfo
 
 
-class GetPluralResponse(BaseResponse):
-    resultBody: List[Product]
+class ProductSearchRequest(BaseModel):
+    productIds: List[int]
 
+
+class ProductSearchResponse(BaseResponse):
+
+    class ProductInfo(BaseModel):
+        productId: int
+        productCode: str
+        productName: str
+        productDescription: str
+        productInformation: str
+        productQuantity: int
+        productCost: int
+        productIsSale: bool
+        productSellerId: int
+
+    content: ProductInfo
+
+
+class ProductStatusRequest(BaseModel):
+    productId: int
+
+
+class ProductStatusResponse(BaseResponse):
+
+    class ProductStatus(BaseModel):
+        productStatus: bool
+
+    content: ProductStatus
+
+
+class ProductPaidRequest(BaseModel):
+    orderCode: int
+    productCode: str
+
+
+class ProductPaidResponse(BaseResponse):
+
+    class ProductInfo(BaseModel):
+        productCode: str
+        productName: str
+        productDescription: str
+        productInformation: str
+        productQuantity: int
+        productCost: int
+        productSellerId: int
+        productStatus: str
+
+    content: ProductInfo
+
+
+class ProductBaseRequest(BaseModel):
+    productCount: int
+
+
+class ProductBaseResponse(BaseResponse):
+
+    class ProductInfo(BaseModel):
+        productId: int
+        productCode: str
+        productName: str
+        productDescription: str
+        productInformation: str
+        productQuantity: int
+        productCost: int
+        productIsSale: bool
+        productSellerId: int
+
+    content: List[ProductInfo]
