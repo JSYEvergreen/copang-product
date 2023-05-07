@@ -2,6 +2,15 @@ from pydantic import BaseModel
 from typing import Optional, List
 
 
+class ProductBaseInfo(BaseModel):
+    productName: str
+    productDescription: str
+    productInformation: str
+    productQuantity: int
+    productCost: int
+    productSellerId: int
+
+
 class BaseResponse(BaseModel):
     isSuccess: bool
     content: BaseModel
@@ -26,15 +35,9 @@ class ProductDuplicateRequest(BaseModel):
 
 class ProductDuplicateResponse(BaseResponse):
 
-    class ProductInfo(BaseModel):
+    class ProductInfo(ProductBaseInfo):
         productId: int
-        productName: str
-        productDescription: str
-        productInformation: str
-        productQuantity: int
-        productCost: int
         productIsSale: bool
-        productSellerId: int
         productCreateAt: str
         ProductDeletedAt: Optional[str]
         productUpdatedAt: str
@@ -48,16 +51,10 @@ class ProductSearchRequest(BaseModel):
 
 class ProductSearchResponse(BaseResponse):
 
-    class ProductInfo(BaseModel):
+    class ProductInfo(ProductBaseInfo):
         productId: int
         productCode: str
-        productName: str
-        productDescription: str
-        productInformation: str
-        productQuantity: int
-        productCost: int
         productIsSale: bool
-        productSellerId: int
 
     content: ProductInfo
 
@@ -81,14 +78,8 @@ class ProductPaidRequest(BaseModel):
 
 class ProductPaidResponse(BaseResponse):
 
-    class ProductInfo(BaseModel):
+    class ProductInfo(ProductBaseInfo):
         productCode: str
-        productName: str
-        productDescription: str
-        productInformation: str
-        productQuantity: int
-        productCost: int
-        productSellerId: int
         productStatus: str
 
     content: ProductInfo
@@ -100,15 +91,9 @@ class ProductBaseRequest(BaseModel):
 
 class ProductBaseResponse(BaseResponse):
 
-    class ProductInfo(BaseModel):
+    class ProductInfo(ProductBaseInfo):
         productId: int
         productCode: str
-        productName: str
-        productDescription: str
-        productInformation: str
-        productQuantity: int
-        productCost: int
         productIsSale: bool
-        productSellerId: int
 
     content: List[ProductInfo]
