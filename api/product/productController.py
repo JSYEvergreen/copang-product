@@ -1,27 +1,63 @@
-from fastapi import APIRouter, Depends
-from dependency_injector.wiring import inject, Provide
+from fastapi import APIRouter
 
-
-from domain.product.productService import ProductInterface
 from api.product.product import (
-    GetOneRequest,
-    GetOneResponse,
-    GetPluralRequest,
-    GetPluralResponse
+    ProductPolicyRequest,
+    ProductPolicyResponse,
+    ProductDuplicateRequest,
+    ProductDuplicateResponse,
+    ProductSearchRequest,
+    ProductSearchResponse,
+    ProductStatusRequest,
+    ProductStatusResponse,
+    ProductPaidRequest,
+    ProductPaidResponse,
+    ProductBaseRequest,
+    ProductBaseResponse
 )
-from container.product.productContainer import ProductContainer
 
 
 product_router: APIRouter = APIRouter()
 
 
-@product_router.post("/product/get-one", response_model=GetOneResponse)
-@inject
-def get_one_product(
-    request: GetOneRequest,
-    product_service: ProductInterface = Depends(Provide[ProductContainer.product_service])
-):  
-    return GetOneResponse()
+@product_router.get("/policy", response_model=ProductPolicyResponse)
+async def get_policy(
+        request: ProductPolicyRequest
+):
+    pass
 
+
+@product_router.get("/info/duplicate", response_model=ProductDuplicateResponse)
+async def get_info_duplicate(
+        request: ProductDuplicateRequest
+):
+    pass
+
+
+@product_router.post("/info/search", response_model=ProductSearchResponse)
+async def post_info_search(
+        request: ProductSearchRequest
+):
+    pass
+
+
+@product_router.get("/status", response_model=ProductStatusResponse)
+async def get_status(
+        request: ProductStatusRequest
+):
+    pass
+
+
+@product_router.get("/info/paid", response_model=ProductPaidResponse)
+async def get_info_paid(
+        request: ProductPaidRequest
+):
+    pass
+
+
+@product_router.get("/info/base", response_model=ProductBaseResponse)
+async def get_info_base(
+        request: ProductBaseRequest
+):
+    pass
 
 
