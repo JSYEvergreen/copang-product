@@ -1,7 +1,7 @@
 from dependency_injector.containers import DeclarativeContainer, WiringConfiguration
 from dependency_injector.providers import Singleton
 
-from domain.product.productService import ProductInterface
+from domain.product.service.productService import ProductInterface
 from application.product.productService import ProductService
 from infra.postgresql.product.productRepo import ProductRepo
 

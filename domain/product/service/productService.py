@@ -1,6 +1,6 @@
 from abc import ABCMeta, abstractmethod
 
-from domain.product.product import (
+from domain.product.service.product import (
     FindProductIn,
     FindProductOut,
     FindProductsIn,

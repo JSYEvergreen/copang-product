@@ -1,10 +1,8 @@
 from abc import ABCMeta, abstractmethod
 
-from domain.product.product import (
+from domain.product.service.product import (
     GetProductIn,
     GetProductOut,
-    GetProductsIn,
-    GetProductsOut,
     GetProductsDateOut
 )
 

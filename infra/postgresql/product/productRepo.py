@@ -1,20 +1,18 @@
 from overrides import override
 
-from domain.product.productRepo import ProductRepo
-from domain.product.product import (
+from domain.product.repo.productRepo import ProductRepo
+from domain.product.service.product import (
     GetProductIn,
     GetProductOut,
-    GetProductsIn,
-    GetProductsOut,
     GetProductsDateOut
 )
 from infra.postgresql.core import PostGreSQLCore
-from infra.postgresql.product.productSchema import Product
 
 
 class PostgresProductRepo(ProductRepo, PostGreSQLCore):
     def __init__(self):
         super().__init__()
+        PostGreSQLCore.__init__(self=self)
 
     @override
     def get_one_product(self, get_one_in: GetProductIn) -> GetProductOut:

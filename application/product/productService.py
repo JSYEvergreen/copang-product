@@ -1,8 +1,8 @@
 from overrides import override
 
-from domain.product.productService import ProductInterface
-from domain.product.productRepo import ProductRepo
-from domain.product.product import (
+from domain.product.service.productService import ProductInterface
+from domain.product.repo.productRepo import ProductRepo
+from domain.product.service.product import (
     FindProductIn,
     FindProductOut,
     FindProductsIn,
