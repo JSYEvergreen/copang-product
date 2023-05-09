@@ -1,6 +1,6 @@
 from pydantic import BaseModel
-from typing import Optional, List
 from datetime import datetime
+from typing import List
 
 
 class Product(BaseModel):
@@ -15,44 +15,48 @@ class Product(BaseModel):
     seller_id: int
     created_at: datetime
     updated_at: datetime
-    deleted_at: Optional[datetime]
+    deleted_at: datetime
 
 
-class FindProductIn(BaseModel):
-    code: str
+class ProductPolicy(BaseModel):
+    id: str
+    type: str
+    policy: str
+    product_id: int
+    created_at: datetime
+    updated_at: datetime
+    deleted_at: datetime
 
 
-class FindProductOut(Product):
-    super().__init__()
+class GetOneProductByIdIn(BaseModel):
+    productId: str
+    userId: str
 
 
-class FindProductsIn(BaseModel):
-    codes: List[str]
+class GetPluralProductByIdIn(BaseModel):
+    productIds: List[str]
+    userId: str
 
 
-class FindProductsOut(BaseModel):
-    products: List[Product]
+class GetOneProductByCodeIn(BaseModel):
+    productCode: str
+    userId: str
 
 
-class FindBaseProductsOut(BaseModel):
-    products: List[Product]
+class GetPluralProductByCodeIn(BaseModel):
+    productCodes: List[str]
+    userId: str
 
 
-class GetProductIn(BaseModel):
-    code: str
+class GetProductPolicyIn(BaseModel):
+    productId: str
+    userId: str
 
 
-class GetProductOut(Product):
-    super().__init__()
+class GetProductStatusIn(BaseModel):
+    productId: str
+    userId: str
 
 
-class GetProductsIn(BaseModel):
-    codes: List[str]
-
-
-class GetProductsOut(BaseModel):
-    products: List[Product]
-
-
-class GetProductsDateOut(BaseModel):
-    products: List[Product]
+class GetProductStatusOut(BaseModel):
+    status: bool

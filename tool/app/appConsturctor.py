@@ -16,7 +16,9 @@ class AppConstructor:
             self.app: FastAPI = FastAPI()
 
             with open("core/AppConfig.toml") as config_file:
-                config: AppConfig = AppConfig(**tomlkit.load(config_file))
+                config: AppConfig = AppConfig(
+                    **tomlkit.load(config_file)
+                )
 
             uvicorn.run(
                 app=self.app,

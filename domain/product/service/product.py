@@ -1,58 +1,77 @@
 from pydantic import BaseModel
-from typing import Optional, List
-from datetime import datetime
+from typing import List, Optional
 
 
-class Product(BaseModel):
-    id: str
-    name: str
-    code: str
-    description: str
-    information: str
-    quantity: int
-    cost: int
-    is_sale: bool
-    seller_id: int
-    created_at: datetime
-    updated_at: datetime
-    deleted_at: Optional[datetime]
+class ProductBaseInfo(BaseModel):
+    productName: str
+    productDescription: str
+    productInformation: str
+    productQuantity: int
+    productCost: int
+    productSellerId: int
 
 
-class FindProductIn(BaseModel):
-    code: str
+class TakeBaseInfoIn(BaseModel):
+    productCount: int
+    userId: str
 
 
-class FindProductOut(Product):
-    super().__init__()
+class TakeBaseInfoOut(ProductBaseInfo):
+    productId: int
+    productCode: str
+    productIsSale: bool
 
 
-class FindProductsIn(BaseModel):
-    codes: List[str]
+class TakePaidInfoIn(BaseModel):
+    orderCode: int
+    productCode: str
+    userId: str
 
 
-class FindProductsOut(BaseModel):
-    products: List[Product]
+class TakePaidInfoOut(ProductBaseInfo):
+    productCode: str
+    productStatus: str
 
 
-class FindBaseProductsOut(BaseModel):
-    products: List[Product]
+class TakeStatusIn(BaseModel):
+    productId: int
+    userId: str
 
 
-class GetProductIn(BaseModel):
-    code: str
+class TakeStatusOut(BaseModel):
+    productStatus: bool
 
 
-class GetProductOut(Product):
-    super().__init__()
+class TakeSearchInfoIn(BaseModel):
+    productIds: List[int]
+    userId: str
 
 
-class GetProductsIn(BaseModel):
-    codes: List[str]
+class TakeSearchInfoOut(ProductBaseInfo):
+    productId: int
+    productCode: str
+    productIsSale: bool
 
 
-class GetProductsOut(BaseModel):
-    products: List[Product]
+class TakeDuplicateInfoIn(BaseModel):
+    productCode: str
+    userId: str
 
 
-class GetProductsDateOut(BaseModel):
-    products: List[Product]
+class TakeDuplicateInfoOut(ProductBaseInfo):
+    productId: int
+    productIsSale: bool
+    productCreatedAt: str
+    productDeletedAt: Optional[str]
+    productUpdatedAt: str
+
+
+class TakePolicyIn(BaseModel):
+    productId: int
+    userId: str
+
+
+class TakePolicyOut(BaseModel):
+    productType: str
+    productPolicy: int
+
