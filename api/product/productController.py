@@ -2,7 +2,9 @@ from fastapi import APIRouter, Depends
 from dependency_injector.wiring import inject, Provide
 
 from domain.product.service.productService import ProductServiceModel
+from domain.token.service.token import TakeUserInfoOut
 from container.product.productContainer import ProductContainer
+from container.token.tokenContainer import TokenContainer
 from api.product.product import (
     ProductPolicyRequest,
     ProductPolicyResponse,
@@ -26,6 +28,7 @@ product_router: APIRouter = APIRouter()
 @inject
 async def get_policy(
         request: ProductPolicyRequest,
+        user_info: TakeUserInfoOut = Depends(TokenContainer.token_service),
         product_service: ProductServiceModel = Depends(Provide[ProductContainer.product_service])
 ):
     pass
@@ -35,6 +38,7 @@ async def get_policy(
 @inject
 async def get_info_duplicate(
         request: ProductDuplicateRequest,
+        user_info: TakeUserInfoOut = Depends(TokenContainer.token_service),
         product_service: ProductServiceModel = Depends(Provide[ProductContainer.product_service])
 ):
     pass
@@ -44,6 +48,7 @@ async def get_info_duplicate(
 @inject
 async def post_info_search(
         request: ProductSearchRequest,
+        user_info: TakeUserInfoOut = Depends(TokenContainer.token_service),
         product_service: ProductServiceModel = Depends(Provide[ProductContainer.product_service])
 ):
     pass
@@ -53,6 +58,7 @@ async def post_info_search(
 @inject
 async def get_status(
         request: ProductStatusRequest,
+        user_info: TakeUserInfoOut = Depends(TokenContainer.token_service),
         product_service: ProductServiceModel = Depends(Provide[ProductContainer.product_service])
 ):
     pass
@@ -62,6 +68,7 @@ async def get_status(
 @inject
 async def get_info_paid(
         request: ProductPaidRequest,
+        user_info: TakeUserInfoOut = Depends(TokenContainer.token_service),
         product_service: ProductServiceModel = Depends(Provide[ProductContainer.product_service])
 ):
     pass
@@ -71,6 +78,7 @@ async def get_info_paid(
 @inject
 async def get_info_base(
         request: ProductBaseRequest,
+        user_info: TakeUserInfoOut = Depends(TokenContainer.token_service),
         product_service: ProductServiceModel = Depends(Provide[ProductContainer.product_service])
 ):
     pass
