@@ -1,4 +1,3 @@
-[BaseSetting]
 name = "postgresql"
 user = "postgres"
 password = "PWD"
