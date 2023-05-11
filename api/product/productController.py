@@ -15,18 +15,12 @@ from domain.product.service.product import (
 from container.product.productContainer import ProductContainer
 from container.token.tokenContainer import TokenContainer
 from api.product.product import (
-    ProductPolicyRequest,
-    ProductPolicyResponse,
-    ProductDuplicateRequest,
-    ProductDuplicateResponse,
-    ProductSearchRequest,
-    ProductSearchResponse,
-    ProductStatusRequest,
-    ProductStatusResponse,
-    ProductPaidRequest,
-    ProductPaidResponse,
-    ProductBaseRequest,
-    ProductBaseResponse
+    ProductPolicyRequest, ProductPolicyResponse,
+    ProductDuplicateRequest, ProductDuplicateResponse,
+    ProductSearchRequest, ProductSearchResponse,
+    ProductStatusRequest, ProductStatusResponse,
+    ProductPaidRequest, ProductPaidResponse,
+    ProductBaseRequest, ProductBaseResponse
 )
 
 
