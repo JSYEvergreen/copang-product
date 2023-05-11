@@ -1,4 +1,5 @@
 from overrides import override
+from typing import List
 
 from domain.product.service.productService import ProductServiceModel
 from domain.product.repo.productRepo import ProductRepoModel
@@ -20,7 +21,7 @@ class ProductServiceModule(ProductServiceModel):
         self.repo: ProductRepoModel = repo
 
     @override
-    def take_base_product_info(self, take_base_info_in: TakeBaseInfoIn) -> TakeBaseInfoOut:
+    def take_base_product_info(self, take_base_info_in: TakeBaseInfoIn) -> List[TakeBaseInfoOut]:
         pass
 
     @override

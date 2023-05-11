@@ -30,7 +30,7 @@ class ProductPolicyResponse(BaseResponse):
 
 
 class ProductDuplicateRequest(BaseModel):
-    productCode: int
+    productCode: str
 
 
 class ProductDuplicateResponse(BaseResponse):

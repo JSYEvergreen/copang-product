@@ -1,4 +1,5 @@
 from abc import ABCMeta, abstractmethod
+from typing import List
 
 from domain.product.service.product import (
     TakeBaseInfoIn, TakeBaseInfoOut,
@@ -12,7 +13,7 @@ from domain.product.service.product import (
 
 class ProductServiceModel(metaclass=ABCMeta):
     @abstractmethod
-    def take_base_product_info(self, take_base_info_in: TakeBaseInfoIn) -> TakeBaseInfoOut:
+    def take_base_product_info(self, take_base_info_in: TakeBaseInfoIn) -> List[TakeBaseInfoOut]:
         pass
 
     @abstractmethod
