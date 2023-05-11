@@ -8,8 +8,7 @@ from domain.token.service.token import (
 
 
 class TokenServiceModel(metaclass=ABCMeta):
-    @classmethod
     @abstractmethod
-    async def take_user_info(cls, token: Optional[str] = Header(...)) -> TakeUserInfoOut:
+    async def take_user_info(self, Token: Optional[str] = Header(...)) -> TakeUserInfoOut:
         pass
 

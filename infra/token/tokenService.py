@@ -7,12 +7,40 @@ from domain.token.service.tokenService import TokenServiceModel
 from domain.token.service.token import (
     TakeUserInfoOut
 )
+from infra.token.token import (
+    TokenConfig
+)
+from infra.token.tokenException import TokenException
 
 
 class TokenServiceModule(TokenServiceModel):
-    @classmethod
+    def __init__(
+            self,
+            config: TokenConfig
+    ):
+        self.config: TokenConfig = config
+
     @override
-    async def take_user_info(cls, token: Optional[str] = Header(...)) -> TakeUserInfoOut:
-        pass
+    async def take_user_info(self, Token: Optional[str] = Header(...)) -> TakeUserInfoOut:
+        response: httpx.Response = httpx.get(
+            url=self.config.request_url,
+            headers=dict(
+                Authorization=f"Bearer {Token}",
+            )
+        )
+
+        json_response: dict = response.json()
+
+        if response.status_code == 500 and json_response.get("errorCode"):
+            raise TokenException(
+                status_code=response.status_code,
+                detail=json_response
+            )
+
+        else:
+            return TakeUserInfoOut(
+                id=json_response.get("content").get("id"),
+                userId=json_response.get("content").get("userId")
+            )
 
 
