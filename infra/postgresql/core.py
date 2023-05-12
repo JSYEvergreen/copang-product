@@ -12,8 +12,8 @@ class PostGreSQLCore:
         self.connection_string: str = f"{self.config.name}://{self.config.user}:{self.config.password}@{self.config.host}:{self.config.port}/{self.config.database}"
         self.engine: Engine = create_engine(self.connection_string, pool_recycle=500)
 
-    def create_session(self):
-        session = sessionmaker(bind=self.engine)
+    def create_session(self) -> sessionmaker:
+        session: sessionmaker = sessionmaker(bind=self.engine)
         return session()
 
     def create_connection(self) -> Connection:

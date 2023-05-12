@@ -15,7 +15,7 @@ from sqlalchemy import (
 BaseUnit = declarative_base()
 
 
-class Seller(BaseUnit):
+class SellerSchema(BaseUnit):
     __tablename__: str = "seller"
     id: str = Column(BIGINT, nullable=False, autoincrement=True, primary_key=True)
     user_id: str = Column(String(40), nullable=False)
@@ -27,7 +27,7 @@ class Seller(BaseUnit):
     deleted_at: DateTime = Column(DateTime, nullable=True)
 
 
-class Buyer(BaseUnit):
+class BuyerSchema(BaseUnit):
     __tablename__: str = "buyer"
     id: str = Column(BIGINT, nullable=False, autoincrement=True, primary_key=True)
     user_id: str = Column(String(40), nullable=False)
@@ -40,7 +40,7 @@ class Buyer(BaseUnit):
     deleted_at: DateTime = Column(DateTime, nullable=True)
 
 
-class Review(BaseUnit):
+class ReviewSchema(BaseUnit):
     __tablename__: str = "review"
     id: str = Column(BIGINT, nullable=False, autoincrement=True, primary_key=True)
     star: DOUBLE_PRECISION = Column(DOUBLE_PRECISION, nullable=False)
@@ -53,7 +53,7 @@ class Review(BaseUnit):
     deleted_at: DateTime = Column(DateTime, nullable=True)
 
 
-class Product(BaseUnit):
+class ProductSchema(BaseUnit):
     __tablename__: str = "product"
     id: str = Column(BIGINT, nullable=False, autoincrement=True, primary_key=True)
     name: str = Column(String(100), nullable=False)
@@ -69,7 +69,7 @@ class Product(BaseUnit):
     deleted_at: DateTime = Column(DateTime, nullable=True)
 
 
-class ProductPolicy(BaseUnit):
+class ProductPolicySchema(BaseUnit):
     __tablename__: str = "product_policy"
     id: str = Column(BIGINT, nullable=False, autoincrement=True, primary_key=True)
     type: str = Column(String(100), nullable=False)
@@ -80,7 +80,7 @@ class ProductPolicy(BaseUnit):
     deleted_at: DateTime = Column(DateTime, nullable=True)
 
 
-class Cart(BaseUnit):
+class CartSchema(BaseUnit):
     __tablename__: str = "cart"
     id: str = Column(BIGINT, nullable=False, autoincrement=True, primary_key=True)
     product_quantity: int = Column(Integer, nullable=False)
@@ -92,7 +92,7 @@ class Cart(BaseUnit):
     deleted_at: DateTime = Column(DateTime, nullable=True)
 
 
-class OrderHistory(BaseUnit):
+class OrderHistorySchema(BaseUnit):
     __tablename__: str = "order_history"
     id: str = Column(BIGINT, nullable=False, autoincrement=True, primary_key=True)
     order_code: str = Column(String(100), nullable=False)
@@ -102,7 +102,7 @@ class OrderHistory(BaseUnit):
     deleted_at: DateTime = Column(DateTime, nullable=True)
 
 
-class OrderProduct(BaseUnit):
+class OrderProductSchema(BaseUnit):
     __tablename__: str = "order_product"
     id: str = Column(BIGINT, nullable=False, autoincrement=True, primary_key=True)
     code: str = Column(String(100), nullable=False)

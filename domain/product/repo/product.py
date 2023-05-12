@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 
 class Product(BaseModel):
@@ -14,8 +14,8 @@ class Product(BaseModel):
     is_sale: bool
     seller_id: int
     created_at: datetime
-    updated_at: datetime
-    deleted_at: datetime
+    updated_at: Optional[datetime]
+    deleted_at: Optional[datetime]
 
 
 class ProductPolicy(BaseModel):
@@ -24,8 +24,8 @@ class ProductPolicy(BaseModel):
     policy: str
     product_id: int
     created_at: datetime
-    updated_at: datetime
-    deleted_at: datetime
+    updated_at: Optional[datetime]
+    deleted_at: Optional[datetime]
 
 
 class GetOneProductByIdIn(BaseModel):
