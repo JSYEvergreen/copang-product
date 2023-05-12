@@ -10,7 +10,8 @@ from domain.product.repo.product import (
     GetProductPolicyIn,
     GetProductStatusIn, GetProductStatusOut,
     GetPluralProductByIdIn,
-    GetPluralProductByCodeIn
+    GetPluralProductByCodeIn,
+    GetRandomProduct
 )
 from infra.postgresql.core import PostGreSQLCore
 from infra.postgresql.product.productSchema import (
@@ -192,7 +193,7 @@ class ProductRepoModule(ProductRepoModel, PostGreSQLCore):
 
         try:
             policy_info: ProductSchema = session.query(
-                ProductPolicySchema
+                ProductSchema
             ).filter(
                 ProductSchema.id == get_status_in.productId
             ).one()
@@ -204,6 +205,54 @@ class ProductRepoModule(ProductRepoModel, PostGreSQLCore):
         # Todo: Exception Block Add
         except Exception:
             session.close()
+
+        finally:
+            session.close()
+
+    @override
+    def get_random_product(self, get_random_product: GetRandomProduct) -> List[Product]:
+        session: sessionmaker = self.create_session()
+
+        try:
+            product_info: List[ProductSchema] = session.query(
+                ProductSchema
+            ).all()
+
+            return [
+                Product(
+                    id=info.id,
+                    name=info.name,
+                    code=info.code,
+                    description=info.description,
+                    information=info.information,
+                    quantity=info.quantity,
+                    cost=info.cost,
+                    is_sale=info.is_sale,
+                    seller_id=info.seller_id,
+                    created_at=info.created_at,
+                    updated_at=info.updated_at,
+                    deleted_at=info.deleted_at,
+                ) for info in product_info
+            ][:get_random_product.count]
+
+        # Todo: Exception Block Add
+        except IndexError:
+            return [
+                Product(
+                    id=info.id,
+                    name=info.name,
+                    code=info.code,
+                    description=info.description,
+                    information=info.information,
+                    quantity=info.quantity,
+                    cost=info.cost,
+                    is_sale=info.is_sale,
+                    seller_id=info.seller_id,
+                    created_at=info.created_at,
+                    updated_at=info.updated_at,
+                    deleted_at=info.deleted_at,
+                ) for info in product_info
+            ]
 
         finally:
             session.close()

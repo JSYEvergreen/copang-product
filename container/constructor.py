@@ -10,7 +10,3 @@ class ContainerConstructor:
     product_container: DeclarativeContainer = ProductContainer()
     token_container: DeclarativeContainer = TokenContainer()
 
-
-BASE_CONTAINER: dataclass = ContainerConstructor()
-
-

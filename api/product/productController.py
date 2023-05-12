@@ -24,13 +24,15 @@ from api.product.product import (
 )
 
 
-product_router: APIRouter = APIRouter()
+product_router: APIRouter = APIRouter(
+    prefix="/product"
+)
 
 
 @product_router.get("/policy", response_model=ProductPolicyResponse)
 @inject
 async def get_policy(
-        request: ProductPolicyRequest,
+        request: ProductPolicyRequest = Depends(),
         user_info: TakeUserInfoOut = Depends(TokenContainer.token_service),
         product_service: ProductServiceModel = Depends(Provide[ProductContainer.product_service])
 ):
@@ -55,7 +57,7 @@ async def get_policy(
 @product_router.get("/info/duplicate", response_model=ProductDuplicateResponse)
 @inject
 async def get_info_duplicate(
-        request: ProductDuplicateRequest,
+        request: ProductDuplicateRequest = Depends(),
         user_info: TakeUserInfoOut = Depends(TokenContainer.token_service),
         product_service: ProductServiceModel = Depends(Provide[ProductContainer.product_service])
 ):
@@ -97,30 +99,32 @@ async def post_info_search(
         userId=user_info.userId
     )
 
-    search_out: TakeSearchInfoOut = product_service.take_search_product_info(
+    search_out: List[TakeSearchInfoOut] = product_service.take_search_product_info(
         take_search_in=search_in
     )
 
     return ProductSearchResponse(
         isSuccess=True,
-        content=ProductSearchResponse.ProductInfo(
-            productInformation=search_out.productInformation,
-            productDescription=search_out.productDescription,
-            productId=search_out.productId,
-            productName=search_out.productName,
-            productQuantity=search_out.productQuantity,
-            productCost=search_out.productCost,
-            productCode=search_out.productCode,
-            productIsSale=search_out.productIsSale,
-            productSellerId=search_out.productSellerId
-        )
+        content=[
+            ProductSearchResponse.ProductInfo(
+                productInformation=info.productInformation,
+                productDescription=info.productDescription,
+                productId=info.productId,
+                productName=info.productName,
+                productQuantity=info.productQuantity,
+                productCost=info.productCost,
+                productCode=info.productCode,
+                productIsSale=info.productIsSale,
+                productSellerId=info.productSellerId
+            ) for info in search_out
+        ]
     )
 
 
 @product_router.get("/status", response_model=ProductStatusResponse)
 @inject
 async def get_status(
-        request: ProductStatusRequest,
+        request: ProductStatusRequest = Depends(),
         user_info: TakeUserInfoOut = Depends(TokenContainer.token_service),
         product_service: ProductServiceModel = Depends(Provide[ProductContainer.product_service])
 ):
@@ -144,7 +148,7 @@ async def get_status(
 @product_router.get("/info/paid", response_model=ProductPaidResponse)
 @inject
 async def get_info_paid(
-        request: ProductPaidRequest,
+        request: ProductPaidRequest = Depends(),
         user_info: TakeUserInfoOut = Depends(TokenContainer.token_service),
         product_service: ProductServiceModel = Depends(Provide[ProductContainer.product_service])
 ):
@@ -176,7 +180,7 @@ async def get_info_paid(
 @product_router.get("/info/base", response_model=ProductBaseResponse)
 @inject
 async def get_info_base(
-        request: ProductBaseRequest,
+        request: ProductBaseRequest = Depends(),
         user_info: TakeUserInfoOut = Depends(TokenContainer.token_service),
         product_service: ProductServiceModel = Depends(Provide[ProductContainer.product_service])
 ):

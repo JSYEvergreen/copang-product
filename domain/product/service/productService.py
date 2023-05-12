@@ -25,7 +25,7 @@ class ProductServiceModel(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def take_search_product_info(self, take_search_in: TakeSearchInfoIn) -> TakeSearchInfoOut:
+    def take_search_product_info(self, take_search_in: TakeSearchInfoIn) -> List[TakeSearchInfoOut]:
         pass
 
     @abstractmethod

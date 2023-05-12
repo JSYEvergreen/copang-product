@@ -56,7 +56,7 @@ class ProductSearchResponse(BaseResponse):
         productCode: str
         productIsSale: bool
 
-    content: ProductInfo
+    content: List[ProductInfo]
 
 
 class ProductStatusRequest(BaseModel):

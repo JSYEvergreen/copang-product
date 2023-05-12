@@ -9,7 +9,7 @@ from infra.postgresql.product.productRepo import ProductRepoModule
 class ProductContainer(DeclarativeContainer):
     product_service: ProductServiceModel = Singleton(
         ProductServiceModule,
-        db=Singleton(
+        repo=Singleton(
             ProductRepoModule
         )
     )

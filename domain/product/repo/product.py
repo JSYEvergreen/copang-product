@@ -60,3 +60,7 @@ class GetProductStatusIn(BaseModel):
 
 class GetProductStatusOut(BaseModel):
     status: bool
+
+
+class GetRandomProduct(BaseModel):
+    count: int
