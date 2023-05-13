@@ -22,12 +22,20 @@ class TokenServiceModule(TokenServiceModel):
 
     @override
     async def take_user_info(self, Token: Optional[str] = Header(...)) -> TakeUserInfoOut:
-        response: httpx.Response = httpx.get(
-            url=self.config.request_url,
-            headers=dict(
-                Authorization=f"Bearer {Token}",
+        try:
+            response: httpx.Response = httpx.get(
+                url=self.config.request_url,
+                headers=dict(
+                    Authorization=f"Bearer {Token}",
+                )
             )
-        )
+        except httpx.ConnectError:
+
+            # Todo: Error Detail Msg Update
+            raise TokenException(
+                status_code=500,
+                detail=dict(msg="test")
+            )
 
         json_response: dict = response.json()
 
