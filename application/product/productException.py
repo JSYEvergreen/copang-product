@@ -10,7 +10,7 @@ class ProductException(HTTPException):
     def __init__(
             self,
             status_code: int,
-            detail: ProductErrorTemplate = None
+            detail: ProductErrorTemplate
     ):
         super().__init__(
             status_code=status_code,

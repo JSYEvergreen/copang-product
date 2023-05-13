@@ -13,15 +13,16 @@ from domain.product.service.product import (
 )
 from domain.product.repo.productRepo import (
     GetProductStatusIn, GetProductStatusOut,
-    GetOneProductByIdIn,
-    GetOneProductByCodeIn,
     GetPluralProductByIdIn,
-    GetPluralProductByCodeIn,
     GetProductPolicyIn,
     GetRandomProduct,
     GetProductsByCodeIn,
     Product,
     ProductPolicy
+)
+from application.product.productException import (
+    ProductException,
+    ProductErrorTemplate
 )
 
 
@@ -42,6 +43,14 @@ class ProductServiceModule(ProductServiceModel):
             get_random_product=random_products_in
         )
 
+        if not random_products_out:
+            raise ProductException(
+                status_code=500,
+                detail=ProductErrorTemplate(
+                    message="물품 리스트가 없습니다."
+                )
+            )
+
         return [
             TakeBaseInfoOut(
                 productName=info.name,
@@ -58,7 +67,13 @@ class ProductServiceModule(ProductServiceModel):
 
     @override
     def take_paid_product_info(self, take_paid_info_in: TakePaidInfoIn) -> TakePaidInfoOut:
-        pass
+        # Todo: Update After 5/14 Meeting...
+        raise ProductException(
+            status_code=500,
+            detail=ProductErrorTemplate(
+                message="현재 구현되지 않은 요청입니다."
+            )
+        )
 
     @override
     def take_status_of_product(self, take_status_in: TakeStatusIn) -> TakeStatusOut:
@@ -70,6 +85,14 @@ class ProductServiceModule(ProductServiceModel):
         product_status_out: GetProductStatusOut = self.repo.get_product_status(
             get_status_in=product_status_in
         )
+
+        if product_status_out is None:
+            raise ProductException(
+                status_code=500,
+                detail=ProductErrorTemplate(
+                    message="해당 물품이 없습니다."
+                )
+            )
 
         return TakeStatusOut(
             productStatus=product_status_out.status
@@ -87,6 +110,14 @@ class ProductServiceModule(ProductServiceModel):
         product_search_out: List[Product] = self.repo.get_plural_product_by_id(
             get_product_in=product_search_in
         )
+
+        if not product_search_out:
+            raise ProductException(
+                status_code=500,
+                detail=ProductErrorTemplate(
+                    message="물품 리스트가 없습니다."
+                )
+            )
 
         return [
             TakeSearchInfoOut(
@@ -113,6 +144,14 @@ class ProductServiceModule(ProductServiceModel):
             get_products=duplicate_in
         )
 
+        if not duplicate_out:
+            raise ProductException(
+                status_code=500,
+                detail=ProductErrorTemplate(
+                    message="물품 리스트가 없습니다."
+                )
+            )
+
         return [
             TakeDuplicateInfoOut(
                 productName=info.name,
@@ -138,6 +177,14 @@ class ProductServiceModule(ProductServiceModel):
         policy_out: ProductPolicy = self.repo.get_product_policy(
             get_policy_in=policy_in
         )
+
+        if policy_out is None:
+            raise ProductException(
+                status_code=500,
+                detail=ProductErrorTemplate(
+                    message="해당 물품이 없습니다."
+                )
+            )
 
         return TakePolicyOut(
             productPolicy=int(policy_out.policy),
