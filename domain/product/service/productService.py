@@ -29,7 +29,7 @@ class ProductServiceModel(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def take_duplicate_product_info(self, take_duplicate_in: TakeDuplicateInfoIn) -> TakeDuplicateInfoOut:
+    def take_duplicate_product_info(self, take_duplicate_in: TakeDuplicateInfoIn) -> List[TakeDuplicateInfoOut]:
         pass
 
     @abstractmethod

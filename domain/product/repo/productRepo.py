@@ -9,7 +9,8 @@ from domain.product.repo.product import (
     GetProductStatusIn, GetProductStatusOut,
     GetPluralProductByIdIn,
     GetPluralProductByCodeIn,
-    GetRandomProduct
+    GetRandomProduct,
+    GetProductsByCodeIn
 )
 
 
@@ -40,6 +41,10 @@ class ProductRepoModel(metaclass=ABCMeta):
 
     @abstractmethod
     def get_random_product(self, get_random_product: GetRandomProduct) -> List[Product]:
+        pass
+
+    @abstractmethod
+    def get_products_by_code(self, get_products: GetProductsByCodeIn) -> List[Product]:
         pass
 
 

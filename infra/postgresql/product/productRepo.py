@@ -11,7 +11,8 @@ from domain.product.repo.product import (
     GetProductStatusIn, GetProductStatusOut,
     GetPluralProductByIdIn,
     GetPluralProductByCodeIn,
-    GetRandomProduct
+    GetRandomProduct,
+    GetProductsByCodeIn
 )
 from infra.postgresql.core import PostGreSQLCore
 from infra.postgresql.product.productSchema import (
@@ -253,6 +254,41 @@ class ProductRepoModule(ProductRepoModel, PostGreSQLCore):
                     deleted_at=info.deleted_at,
                 ) for info in product_info
             ]
+
+        finally:
+            session.close()
+
+    @override
+    def get_products_by_code(self, get_products: GetProductsByCodeIn) -> List[Product]:
+        session: sessionmaker = self.create_session()
+
+        try:
+            product_info: ProductSchema = session.query(
+                ProductSchema
+            ).filter(
+                ProductSchema.code == get_products.productCode
+            ).all()
+
+            return [
+                Product(
+                    id=info.id,
+                    name=info.name,
+                    code=info.code,
+                    description=info.description,
+                    information=info.information,
+                    quantity=info.quantity,
+                    cost=info.cost,
+                    is_sale=info.is_sale,
+                    seller_id=info.seller_id,
+                    created_at=info.created_at,
+                    updated_at=info.updated_at,
+                    deleted_at=info.deleted_at,
+                ) for info in product_info
+            ]
+
+        # Todo: Exception Block Add
+        except Exception:
+            session.close()
 
         finally:
             session.close()

@@ -15,11 +15,11 @@ from domain.product.repo.productRepo import (
     GetProductStatusIn, GetProductStatusOut,
     GetOneProductByIdIn,
     GetOneProductByCodeIn,
-    GetProductStatusOut,
     GetPluralProductByIdIn,
     GetPluralProductByCodeIn,
     GetProductPolicyIn,
     GetRandomProduct,
+    GetProductsByCodeIn,
     Product,
     ProductPolicy
 )
@@ -103,8 +103,30 @@ class ProductServiceModule(ProductServiceModel):
         ]
 
     @override
-    def take_duplicate_product_info(self, take_duplicate_in: TakeDuplicateInfoIn) -> TakeDuplicateInfoOut:
-        pass
+    def take_duplicate_product_info(self, take_duplicate_in: TakeDuplicateInfoIn) -> List[TakeDuplicateInfoOut]:
+        duplicate_in: GetProductsByCodeIn = GetProductsByCodeIn(
+            productCode=take_duplicate_in.productCode,
+            userId=take_duplicate_in.userId
+        )
+
+        duplicate_out: List[Product] = self.repo.get_products_by_code(
+            get_products=duplicate_in
+        )
+
+        return [
+            TakeDuplicateInfoOut(
+                productName=info.name,
+                productDescription=info.description,
+                productInformation=info.information,
+                productQuantity=info.quantity,
+                productCost=info.cost,
+                productSellerId=info.seller_id,
+                productId=int(info.id),
+                productIsSale=info.is_sale,
+                productCreatedAt=info.created_at,
+                productUpdatedAt=info.updated_at
+            ) for info in duplicate_out
+        ]
 
     @override
     def take_product_policy(self, take_policy_in: TakePolicyIn) -> TakePolicyOut:

@@ -64,3 +64,9 @@ class GetProductStatusOut(BaseModel):
 
 class GetRandomProduct(BaseModel):
     count: int
+
+
+class GetProductsByCodeIn(BaseModel):
+    productCode: str
+    userId: str
+

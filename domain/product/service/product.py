@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import List, Optional
+from datetime import datetime
 
 
 class ProductBaseInfo(BaseModel):
@@ -61,9 +62,9 @@ class TakeDuplicateInfoIn(BaseModel):
 class TakeDuplicateInfoOut(ProductBaseInfo):
     productId: int
     productIsSale: bool
-    productCreatedAt: str
-    productDeletedAt: Optional[str]
-    productUpdatedAt: str
+    productCreatedAt: datetime
+    productDeletedAt: Optional[datetime]
+    productUpdatedAt: datetime
 
 
 class TakePolicyIn(BaseModel):
