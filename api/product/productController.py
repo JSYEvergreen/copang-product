@@ -66,24 +66,26 @@ async def get_info_duplicate(
         userId=user_info.userId
     )
 
-    duplicate_out: TakeDuplicateInfoOut = product_service.take_duplicate_product_info(
+    duplicate_out: List[TakeDuplicateInfoOut] = product_service.take_duplicate_product_info(
         take_duplicate_in=duplicate_in
     )
 
     return ProductDuplicateResponse(
         isSuccess=True,
-        content=ProductDuplicateResponse.ProductInfo(
-            productId=duplicate_out.productId,
-            productCost=duplicate_out.productCost,
-            productName=duplicate_out.productName,
-            productQuantity=duplicate_out.productQuantity,
-            productDescription=duplicate_out.productDescription,
-            productInformation=duplicate_out.productInformation,
-            productIsSale=duplicate_out.productIsSale,
-            productCreateAt=duplicate_out.productCreatedAt,
-            productSellerId=duplicate_out.productSellerId,
-            productUpdatedAt=duplicate_out.productUpdatedAt
-        )
+        content=[
+            ProductDuplicateResponse.ProductInfo(
+                productId=info.productId,
+                productCost=info.productCost,
+                productName=info.productName,
+                productQuantity=info.productQuantity,
+                productDescription=info.productDescription,
+                productInformation=info.productInformation,
+                productIsSale=info.productIsSale,
+                productCreateAt=info.productCreatedAt,
+                productSellerId=info.productSellerId,
+                productUpdatedAt=info.productUpdatedAt
+            ) for info in duplicate_out
+        ]
     )
 
 

@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 from typing import Optional, List
+from datetime import datetime
 
 
 class ProductBaseInfo(BaseModel):
@@ -38,11 +39,11 @@ class ProductDuplicateResponse(BaseResponse):
     class ProductInfo(ProductBaseInfo):
         productId: int
         productIsSale: bool
-        productCreateAt: str
-        ProductDeletedAt: Optional[str]
-        productUpdatedAt: str
+        productCreateAt: datetime
+        ProductDeletedAt: Optional[datetime]
+        productUpdatedAt: Optional[datetime]
 
-    content: ProductInfo
+    content: List[ProductInfo]
 
 
 class ProductSearchRequest(BaseModel):
